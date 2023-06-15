@@ -1,1 +1,1 @@
-Wrapper for Selenium on C#
+Selenium Framework (Wrapper) for Selenium on C#
