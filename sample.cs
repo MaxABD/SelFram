@@ -41,3 +41,27 @@ IWebElement to2 = driver.FindElement(By.XPath("//div[@data-drop-target][1]"));
 to.SendKeys("Sample");
 
 
+
+
+        //Неявные ожидания
+        public static TimeSpan ImplicitWait(this IWebDriver driver, int second = 15)
+        {
+            return driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(second);
+        }
+
+        public static TimeSpan ImplicitWait(this IWebDriver driver, TimeSpan timeout)
+        {
+            return driver.Manage().Timeouts().ImplicitWait = timeout;
+        }
+        //Явные ожидания
+        public static IAlert AlertIsPresent(this WebDriverWait wait)
+        {
+            return wait.Until(ExpectedConditions.AlertIsPresent());
+        }
+
+        public static IWebElement ElVisible(this WebDriverWait wait, By locator)
+        {
+            return wait.Until(ExpectedConditions.ElementIsVisible(locator));
+        }
+
+
