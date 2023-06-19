@@ -233,16 +233,6 @@ namespace SeleniumFramework.Framework
             element.SendKeys(text);
         }
 
-        public static void Click(this IWebDriver driver, IWebElement element)
-        {
-            element.Click();
-        }
-
-        public static void Clear(this IWebDriver driver, IWebElement element)
-        {
-            element.Clear();
-        }
-
         //Работа с Alert
         public static string AlertText(this IWebDriver driver)
         {
