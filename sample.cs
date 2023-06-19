@@ -65,3 +65,14 @@ to.SendKeys("Sample");
         }
 
 
+WebDriverWait wait = WaitExtension.GetWait(driver, 15);
+driver.ImplicitWait();
+wait.ElVisible(By.Id("box1"));
+
+
+WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(15);
+ wait.Until(ExpectedConditions.ElementIsVisible(By.Id("box1")));
+
+
+
