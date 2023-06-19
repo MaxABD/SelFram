@@ -180,7 +180,7 @@ namespace SeleniumFramework.Framework
             return driver.SwitchTo().ActiveElement();
         }
 
-        public static IAlert Alert(this IWebDriver driver)
+        public static IAlert SwitchAlert(this IWebDriver driver)
         {
             return driver.SwitchTo().Alert();
         }
