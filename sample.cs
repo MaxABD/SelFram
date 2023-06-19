@@ -28,3 +28,16 @@ IWebDriver driver = DriverFixture.GetWebDriver(Browser.Chrome, WSize.Max, "https
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeout));
             return wait.Until(driver => driver.FindElements(locator));
         }
+
+driver.Css("#input");
+
+IWebElement to = driver.Id("destination");
+IWebElement to2 = driver.XPath("//div[@data-drop-target][1]");
+to.SK("Sample");
+
+
+IWebElement to = driver.FindElement(By.Id("destination"));
+IWebElement to2 = driver.FindElement(By.XPath("//div[@data-drop-target][1]"));
+to.SendKeys("Sample");
+
+
