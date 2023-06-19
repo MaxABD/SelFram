@@ -244,7 +244,7 @@ namespace SeleniumFramework.Framework
         }
 
         //Работа с Alert
-        public static string AlertText(this IWebDriver driver, string text)
+        public static string AlertText(this IWebDriver driver)
         {
             return driver.SwitchTo().Alert().Text;
         }
