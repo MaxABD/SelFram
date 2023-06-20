@@ -44,91 +44,40 @@ namespace SeleniumFramework.Framework
         //Инициализация браузера + настройка размера окна (опции браузера - необязательный параметр)
         public static IWebDriver GetWebDriver(Browser Browser, WSize Size, dynamic options = null)
         {
-            switch (Browser)
-            {
-                case Browser.Chrome:
-                    if (options != null) driver = new ChromeDriver(options);
-                    else driver = new ChromeDriver();
-                    Window(driver, Size);
-                    break;
-                case Browser.Firefox:
-                    if (options != null) driver = new FirefoxDriver(options);
-                    else driver = new FirefoxDriver();
-                    Window(driver, Size);
-                    break;
-                case Browser.Safari:
-                    if (options != null) driver = new SafariDriver(options);
-                    else driver = new SafariDriver();
-                    Window(driver, Size);
-                    break;
-                case Browser.Edge:
-                    if (options != null) driver = new EdgeDriver(options);
-                    else driver = new EdgeDriver();
-                    Window(driver, Size);
-                    break;
-            }
+            GetWebDriver(Browser: Browser, options: options);
+            Window(driver, Size);
+            return driver;
+        }
+
+        public static IWebDriver GetWebDriver(Browser Browser, int width, int height, dynamic options = null)
+        {
+            GetWebDriver(Browser: Browser, options: options);
+            Window(driver, width, height);            
             return driver;
         }
 
         //Инициализация браузера + переход по ссылке (опции браузера - необязательный параметр)
         public static IWebDriver GetWebDriver(Browser Browser, string url, dynamic options = null)
         {
-            switch (Browser)
-            {
-                case Browser.Chrome:
-                    if (options != null) driver = new ChromeDriver(options);
-                    else driver = new ChromeDriver();
-                    Url(driver, url);
-                    break;
-                case Browser.Firefox:
-                    if (options != null) driver = new FirefoxDriver(options);
-                    else driver = new FirefoxDriver();
-                    Url(driver, url);
-                    break;
-                case Browser.Safari:
-                    if (options != null) driver = new SafariDriver(options);
-                    else driver = new SafariDriver();
-                    Url(driver, url);
-                    break;
-                case Browser.Edge:
-                    if (options != null) driver = new EdgeDriver(options);
-                    else driver = new EdgeDriver();
-                    Url(driver, url);
-                    break;
-            }
+            GetWebDriver(Browser: Browser, options: options);
+            Url(driver, url);            
             return driver;
         }
 
         //Инициализация браузера + настройка размера окна + переход по ссылке (опции браузера - необязательный параметр)
         public static IWebDriver GetWebDriver(Browser Browser, WSize Size, string url, dynamic options = null)
         {
-            switch (Browser)
-            {
-                case Browser.Chrome:
-                    if (options != null) driver = new ChromeDriver(options);
-                    else driver = new ChromeDriver();
-                    Url(driver, url);
-                    Window(driver, Size);
-                    break;
-                case Browser.Firefox:
-                    if (options != null) driver = new FirefoxDriver(options);
-                    else driver = new FirefoxDriver();
-                    Url(driver, url);
-                    Window(driver, Size);
-                    break;
-                case Browser.Safari:
-                    if (options != null) driver = new SafariDriver(options);
-                    else driver = new SafariDriver();
-                    Url(driver, url);
-                    Window(driver, Size);
-                    break;
-                case Browser.Edge:
-                    if (options != null) driver = new EdgeDriver(options);
-                    else driver = new EdgeDriver();
-                    Url(driver, url);
-                    Window(driver, Size);
-                    break;
-            }
+            GetWebDriver(Browser: Browser, options: options);
+            Window(driver, Size);
+            Url(driver, url);
+            return driver;
+        }
+
+        public static IWebDriver GetWebDriver(Browser Browser, int width, int height, string url, dynamic options = null)
+        {
+            GetWebDriver(Browser: Browser, options: options);
+            Window(driver, width, height);
+            Url(driver, url);
             return driver;
         }
 
@@ -141,6 +90,12 @@ namespace SeleniumFramework.Framework
                 case WSize.Max: driver.Manage().Window.Maximize(); break;
                 case WSize.Min: driver.Manage().Window.Minimize(); break;                   
             }
+        }
+
+        public static void Window(this IWebDriver driver, int width, int height)
+        {
+            driver.Manage().Window.Position = new Point(0, 0);
+            driver.Manage().Window.Size = new Size(width, height);
         }
 
         public static Point WinPos(this IWebDriver driver)
@@ -215,9 +170,45 @@ namespace SeleniumFramework.Framework
             return driver.SwitchTo().ParentFrame();
         }
 
-        public static IWebDriver Window(this IWebDriver driver, string windowName)
+        public static IWebDriver SwitchWindow(this IWebDriver driver, string windowName)
         {
             return driver.SwitchTo().Window(windowName);
+        }
+
+        //Работа с Cookie
+        public static void AddCookie(this IWebDriver driver, Cookie cookie)
+        {
+            driver.Manage().Cookies.AddCookie(cookie);
+        }
+
+        public static void AddCookie(this IWebDriver driver, string key, string value)
+        {
+            driver.Manage().Cookies.AddCookie(new Cookie(key, value));
+        }
+
+        public static void DelAllCookies(this IWebDriver driver)
+        {
+            driver.Manage().Cookies.DeleteAllCookies();
+        }
+
+        public static void DelCookie(this IWebDriver driver, Cookie cookie)
+        {
+            driver.Manage().Cookies.DeleteCookie(cookie);
+        }
+
+        public static void DelCookieName(this IWebDriver driver, string name)
+        {
+            driver.Manage().Cookies.DeleteCookieNamed(name);
+        }
+
+        public static Cookie GetCookieName(this IWebDriver driver, string name)
+        {
+            return driver.Manage().Cookies.GetCookieNamed(name);
+        }
+
+        public static ReadOnlyCollection<Cookie> GetAllCookie(this IWebDriver driver, string name)
+        {
+            return driver.Manage().Cookies.AllCookies;
         }
     }
 
