@@ -206,7 +206,7 @@ namespace SeleniumFramework.Framework
             return driver.Manage().Cookies.GetCookieNamed(name);
         }
 
-        public static ReadOnlyCollection<Cookie> GetAllCookie(this IWebDriver driver, string name)
+        public static ReadOnlyCollection<Cookie> GetAllCookie(this IWebDriver driver)
         {
             return driver.Manage().Cookies.AllCookies;
         }
